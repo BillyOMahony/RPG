@@ -6,7 +6,7 @@ public abstract class Interactable : MonoBehaviour {
 
     public string tagToAssign = "Interactable";
 
-    void Start()
+    protected void Initialize()
     {
         AssignTag();
     }
