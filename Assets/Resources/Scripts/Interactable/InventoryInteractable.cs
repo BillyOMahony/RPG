@@ -11,11 +11,15 @@ public class InventoryInteractable : Interactable {
     // Use this for initialization
     void Start () {
         Initialize();
+        if (gameObject.GetComponent<Inventory>() == null)
+        {
+            Debug.LogError(gameObject.name + " No Inventory component attached");
+        }
 	}
 
     public override void Interact()
     {
-        throw new System.NotImplementedException();
+        Debug.Log(gameObject.name + ": InventoryInteractable: Interact() called");
     }
 
 

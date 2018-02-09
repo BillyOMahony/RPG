@@ -12,25 +12,58 @@ public class DetectInteractable : MonoBehaviour {
 
     public float RaycastDistance = 10;
 
+    public GameObject InteractText;
+
 	// Use this for initialization
 	void Start () {
-		
+		if(InteractText == null){
+            Debug.LogError(gameObject.name + ": DetectInteractable: InteractText is not assigned");
+        }
+        else{
+            SetupText();
+        }
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         GameObject InteractableObject = RaycastForInteractable();
+        EnableInteraction(InteractableObject);
+    }
+
+    /// <summary>
+    /// Allows player to call the Interact method on the InteractableObject
+    /// </summary>
+    /// <param name="InteractableObject"></param>
+    private void EnableInteraction(GameObject InteractableObject)
+    {
         if (InteractableObject != null)
         {
-            // Display Interact Text / Image
-
-            // Check for KeyPress
-
-            // If keypress, call interact
-
+            InteractText.SetActive(true);
+            if (Input.GetButton("Interact"))
+            {
+                InteractableObject.GetComponent<Interactable>().Interact();
+            }
         }
-	}
+        else
+        {
+            InteractText.SetActive(false);
+        }
+    }
 
+    void SetupText()
+    {
+        // find the canvas
+        GameObject Canvas = GameObject.Find("Canvas");
+        InteractText = Instantiate(InteractText, Canvas.transform);
+        InteractText.SetActive(false);
+    }
+
+    /// <summary>
+    /// Raycasts in front of the gameobject. If it finds a gameobject with
+    /// interactableTag as the assigned tag it returns that gameobject
+    /// </summary>
+    /// <returns></returns>
     GameObject RaycastForInteractable()
     {
         //Raycast in the direction the camera is looking
@@ -42,11 +75,9 @@ public class DetectInteractable : MonoBehaviour {
             string tag = ObjectHit.transform.tag;
             if (tag == interactableTag)
             {
-                Debug.Log("Interactable Object found");
                 return ObjectHit.transform.gameObject;
             }
         }
-        Debug.Log("No interactable found");
         return null;
     }
 }
