@@ -44,7 +44,7 @@ public class Inventory : MonoBehaviour {
         }
         else
         {
-            Debug.Log(gameObject.name + ": Removing " + item.itemName + " is not in dictionary, cannot be removed.");
+            Debug.Log(gameObject.name + ": " + item.itemName + " is not in dictionary, cannot be removed.");
         }
     }
 
