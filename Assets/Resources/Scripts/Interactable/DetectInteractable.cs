@@ -40,7 +40,7 @@ public class DetectInteractable : MonoBehaviour {
         if (InteractableObject != null)
         {
             InteractText.SetActive(true);
-            if (Input.GetButton("Interact"))
+            if (Input.GetButtonDown("Interact"))
             {
                 InteractableObject.GetComponent<Interactable>().Interact();
             }
